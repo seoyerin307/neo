@@ -1,6 +1,6 @@
 #include <stdio.h> // System library < >, User library " "
 
-void main( ) {
+void main() {
     printf("Hello World~!!\n");
 
     // return 0;

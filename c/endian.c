@@ -6,6 +6,6 @@ void main() {
 
     if(*(char *)&x == 1)
         printf("This system is Little-Endian. \n");
-    else
-        printf("This is system is Big-Endian. \n");
-    }
+    else 
+        printf("This system is Big-Endian. \n");
+}
