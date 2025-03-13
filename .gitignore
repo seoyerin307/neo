@@ -11,3 +11,6 @@ c/makefile/*.o
 c/meta/*
 !c/mata/*.c
 !c/mata/Makefile
+
+# Java
+**/*.class

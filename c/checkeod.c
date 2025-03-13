@@ -1,6 +1,6 @@
 int checkeod(int x) {
-    if(x % 2 ==0 ) 
+     if(x % 2 ==0 ) 
     return 0;
 else
-    return 1;
+     return 1;
 }
