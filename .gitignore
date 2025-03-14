@@ -4,13 +4,10 @@ env
 # c program
 c/*
 !c/*.c
-!c/lib
-!c/makefile
-c/makefile/*.o
-!c/meta/
-c/meta/*
-!c/mata/*.c
-!c/mata/Makefile
+!c/**/*.c
+!c/**/*.h
+!c/**/*.a
+!c/**/Makefile
 
 # Java
 **/*.class
