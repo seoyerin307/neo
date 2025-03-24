@@ -11,3 +11,7 @@ c/*
 
 # Java
 **/*.class
+
+#ZZ: Scala
+ scala/**/project
+  scala/**/target
