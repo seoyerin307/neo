@@ -23,3 +23,7 @@ maven/**/target
 node/**/node_modules
 node/**/package-lock.json
 
+# python
+python/**/.venv
+pyhton/**/__pycache__/
+
