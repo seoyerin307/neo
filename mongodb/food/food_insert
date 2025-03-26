@@ -6,4 +6,4 @@ db.food.insert({
         "grape","melon","water melon","cherry","kiwi","strawberry"
     ]
 })
-db.food.find({},{_id:0})
+db.food.find({}, {_id:0})
