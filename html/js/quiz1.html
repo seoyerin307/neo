@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>switch</title>
+</head>
+<body>
+<h3>Whlie문을 이용해서 달력 출력</h3>
+<hr>
+<script>
+	 while (true) {
+        let n = prompt("원하는 년도와 달을 입력하세요. (예: 202504)");
+        n = parseInt(n);
+        input_year = n / 100;
+        input_month = n % 100;
+        if (n / 100 == 2025 && (n % 100 == 4 || n % 100 == 5 || n % 100 == 6)) {
+            let i = 1;
+            document.write("sun mon tue wed thu fri sat<br>");
+            while (i <= n) {
+                if (i < 10) 
+                document.write("&nbsp;&nbsp;" + i + "&nbsp;&nbsp;&nbsp;");
+                else document.write(i + "&nbsp;&nbsp;&nbsp;");
+                if (i % 7 == 0) document.write("<br>");
+                i++;
+            }
+          break;
+        } else {
+            alert("다시 입력하세요.");
+            continue
+        }
+        }
+    </script>
+</body>
+</html>
