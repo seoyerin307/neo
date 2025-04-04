@@ -47,31 +47,45 @@
       const input_month = input.substr(4, 2);
       var startDay = new Date(input_year + "-" + input_month).getDay();
       var endDay = new Date(input_year, input_month, 0).getDate();
-      document.write("<h4 style='text-align:center'>" + input_year + " / " + input_month + "</h4>");
+      document.write(
+        "<h4 style='text-align:center'>" +
+          input_year +
+          " / " +
+          input_month +
+          "</h4>"
+      );
     </script>
     <table id="calendar" border="3" align="center" width="400" height="300">
       <thead>
-        <script>
+        <tr>
+          <!-- <th class="sun">Sun</th>
+          th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th class="sat">Sat</th> -->
+          <script>
             let week = new Array(
-                "Sun",
-                "Mon",
-                "Tue",
-                "Wed",
-                "Thu",
-                "Fri",
-                "Sat"
+              "Sun",
+              "Mon",
+              "Tue",
+              "Wed",
+              "Thu",
+              "Fri",
+              "Sat"
             );
             for (i = 0; i < week.length; i++) {
-                if (i == 0)
-                    document.write("<th class='sun'>" + week[i] + "</th>");
-                else if (i == week.length -1)
+              if (i == 0)
+                document.write("<th class='sun'>" + week[i] + "</th>");
+              else if (i == week.length - 1)
                 document.write("<th class='sat'>" + week[i] + "</th>");
-                else document.write("<th>" + week[i] + "</th>");
+              else document.write("<th>" + week[i] + "</th>");
             }
-      </script>
-    </tr>
-    </thead>
-    <script>
+          </script>
+        </tr>
+      </thead>
+      <script>
         let i = 1;
         for (i = 1; i <= endDay + startDay; i++) {
           if (i % 7 == 1) document.write("<tr>");
@@ -83,5 +97,5 @@
         }
       </script>
     </table>
-  </body>OO
+  </body>
 </html>
