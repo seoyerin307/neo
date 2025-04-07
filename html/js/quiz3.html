@@ -17,11 +17,7 @@
                 array[i] = Math.floor(Math.random() * 100 + 1);
                 document.write(array[i] + " ");
             }
-            // for(let i = 0; i < n / 2; i++) {
-            //     let temp = array[i];
-            //     array[i] = array[n - 1 - i];
-            //     array[n - 1 - i] = temp;
-            // }
+
             for (let i =0, j = array.length - 1; i < j; i++, j--) {
                 let temp = array[i];
                 array[i] = array[j];

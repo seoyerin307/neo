@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>함수 이용 - 웹 페이지의 자동 스크롤</title>
+    </head>
+    <body>
+        <h1>함수 이용 - 웹 페이지의 자동 스크롤</h1>
+        <form>
+            <input type="text" id="input" placeholder="숫자/문자 3글자" />
+            <input type="button" value="Check palindreme" onclick="checkPalindreme()" />
+            <p>
+                <input type="radio" name="ta" value="0" />숫자
+                <input type="radio" name="ta" value="1" />문자
+            </p>
+        </form>
+   <div style="margin:10px">
+    <span id="output">3자리 문자 또는 숫자를 입력하세요.</span>
+   </div>
+        <script>
+            function checkPalindreme() {
+                let input = document.getElementById("input").value;
+                let ta = document.querySelector('input[name="ta"]:checked').value;
+                let output = document.getElementById("output");
+                let result = "";
+                
+               
+        </script>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>함수 이용 - 웹 페이지의 자동 스크롤</title>
+    <script>
+let state = 1;
+
+function change() {
+    state = !state;
+    let mySpan = document.getElementById("mySpan");
+    if (state == 1) {
+        mySpan.style.color = "blue";
+    } else {
+        mySpan.style.color = "red";
+    }
+}
+    </script>
+    </head>
+    <body>
+        <h1>함수 이용 - 웹 페이지의 자동 스크롤</h1>
+        <hr>
+        <p style="color: blue">
+            이것은 <span id="mySpan" style="color: red">문장입니다.</span>
+        </p>
+        <input type="button" value="스타일변경" onclick="change()" />
+    </body>
+    </html>
