@@ -71,7 +71,7 @@ print(dict.items())
 for i in dict.items():
     print(f'all : {i}')
     print(f'key : {i[0]}')
-    print(f'value : {i[1]}')
+    print(f'value : {i[1]}' )
     print()
 
 #get()
