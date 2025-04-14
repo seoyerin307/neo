@@ -1,5 +1,5 @@
 import pandas as pd
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 
 plt.rcParams['font.family'] = 'NanumBarunGothic'
 
@@ -25,17 +25,17 @@ print(frame03.head())
 print('-' * 50)
 
 totalframe = pd.concat([frame01, frame02, frame03], axis=1, ignore_index=True)
-print(totalframe.head())
+totalframe.columns = ['f', '4', 'r']
 print(totalframe.head())
 print('-' * 50)
 
 totalframe.plot(kind='box')
-plt.xlabel('구동방식')
+plt.xlabel('구동 방식')
 plt.ylabel('주행 마일 수')
 plt.grid(False)
-plt.title('고속도로 주행 마일수의 상자 수염염')
+plt.title('고속도로 주행 마일 수의 상자 수염')
 
 filename = 'Ex_p239_10.png'
-plt.savefig(filename, dpi=400, bbox_inches='tight')
+plt.savefig (filename, dpi=400, bbox_inches='tight')
 print(filename + ' saved')
 plt.show()
