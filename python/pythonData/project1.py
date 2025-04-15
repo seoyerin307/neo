@@ -41,12 +41,16 @@ target = df_yearly[df_yearly['항목'] == '가계지출']
 
 # 12. 시각화
 plt.figure(figsize=(10, 6))
+
+# [단위 변경] 연간합계를 만원 단위로 나눔
+target['연간합계'] = target['연간합계'] / 10000
+
 for name, group in target.groupby('연령대'):
     plt.plot(group['연도'], group['연간합계'], marker='o', label=name)
 
 plt.title('연도별 가계지출 추이 (가구주 연령대별)')
 plt.xlabel('연도')
-plt.ylabel('연간 가계지출')
+plt.ylabel('연간 가계지출 (만원)')  # <- 단위 표시
 plt.legend(title='연령대')
 plt.grid(True)
 plt.tight_layout()

@@ -1,4 +1,4 @@
-from intertools import count
+from itertools import count
 
 for page_idx in count():
     if page_idx >= 5:
