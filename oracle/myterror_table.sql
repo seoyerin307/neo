@@ -7,7 +7,7 @@ create table myterror (
     country_txt varchar2(100),
     region integer,
     region_txt varchar2(100),
-    provstat varchar2(100),
+    provstate varchar2(100),
     city varchar2(100),
     latitude float,
     longitude float)
