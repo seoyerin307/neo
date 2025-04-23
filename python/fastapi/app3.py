@@ -1,80 +1,34 @@
-import uvicorn
-from fastapi import FastAPI, status
-from fastapi.responses import PlainTextResponse, JSONResponse
+from fastapi import FastAPI, Request, status
+from fastapi.responses import JSONResponse
 from datetime import datetime
-from pydantic import BaseModel, EmailStr, Field, json_schema
-from typing import Optional
-import uuid
 
 app = FastAPI()
 
-class RequestUserDto(BaseModel):
-    nickname : str=Field(title='사용자 닉네임')
-    email : EmailStr=Field(title='사용자 이메일 주소')
-    phone : str=Field(title='사용자 휴대폰  번호', pattern='^010-([0-9]{4})-([0-9]{4})$')
-    description : Optional[str]=Field(title='사용자 소개')
+@app.post("/api/pension_calculation")
+async def get_pension(request: Request):
+    content_type = request.headers.get("Content-Type", "")
 
-class ResponseUserDto(BaseModel):
-    nickname : str=Field(title='사용자 닉네임')
-    email : EmailStr=Field(title='사용자 이메일 주소')
-    phone : str=Field(title='사용자 휴대폰  번호', pattern='^010-([0-9]{4})-([0-9]{4})$')
-    description : Optional[str]=Field(title='사용자 소개')
+    if "application/json" in content_type:
+        data = await request.json()
+    elif "application/x-www-form-urlencoded" in content_type:
+        form = await request.form()
+        data = dict(form)
+    else:
+        return JSONResponse(
+            status_code=415,
+            content={"error": "지원하지 않는 Content-Type입니다. JSON 또는 Form으로 요청해주세요."}
+        )
 
-    class Config:
-        json_schema_extra = {
-            'example': {
-                'id' : uuid.uuid4(),
-                'email' : 'watson@example.com',
-            }
-        }
+    try:
+        age = int(data.get("age"))
+    except (TypeError, ValueError):
+        return JSONResponse(
+            status_code=400,
+            content={"error": "나이(age)를 정확히 입력해 주세요. 숫자 형태여야 합니다."}
+        )
 
-@app.get(
-    path='/', description='HelthCheck용 포인트 입니다.',
-    status_code=status.HTTP_200_OK,
-    response_class=PlainTextResponse,
-    responses={200: {"description": "Health check 응답"}}
-)
-async def HealthCheck():
-    return "{status: 'ok'}"
+    current_year = datetime.now().year
+    birth_year = current_year - age
+    pension_year = birth_year + 65
 
-@app.post(
-    path='/registerReq', 
-    description='회원가입 API입니다.',
-    status_code=201, 
-    response_class=JSONResponse,
-    responses={
-        201: {
-            "description":"가입 사용자 정보",
-            "content": {
-                "application/json": {
-                    "example": {
-                        "nickname": "왓슨",
-                        "email": "watson@example.com",
-                        "phone": "010-1234-5678",
-                        "description": "버즈니 왓슨입니다."
-                    }
-                }
-            }
-        }
-    }
-)
-async def register_req_user(req: RequestUserDto):
-    return req.dict()
-
-@app.post(
-    path='/registerRes',
-    description='회원가입 API입니다.',
-    status_code=201,
-    response_model = ResponseUserDto,
-    responses={
-        200: {
-            "description": "가입 사용자 정보"
-        }
-    }
-)
-async def register_res_user(req: ResponseUserDto):
-    return req.dict()
-
-if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=3000)
-    
+    return {"pension_year": pension_year}

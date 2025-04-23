@@ -1,0 +1,50 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+file_path = 'retirement.csv'
+df = pd.read_csv(file_path, header=[0, 1])
+
+plt.rcParams['font.family'] = 'NanumGothic'
+
+# 1. 60세 이상 생활비 분포
+age = df[df[("구분별(2)", "구분별(2)")] == "60세 이상"]
+income_columns = [col for col in df.columns if col[0] == '2024']
+
+income_labels = [col[1] for col in income_columns]
+
+# 문자열을 숫자로 변환 (예: '12,345' -> 12345)
+age_expense_raw = age.iloc[0][income_columns]
+age_expense = pd.to_numeric(age_expense_raw.replace({',': ''}, regex=True))
+
+# 라벨 추가
+age_expense.index = income_labels
+
+# 그래프 그리기
+plt.figure(figsize=(12, 6))
+age_expense.plot(kind='bar', color='#3b0fd3', title='60세 이상 생활비 분포')
+plt.ylabel("비율(%)", fontsize=12)
+plt.xticks(rotation=45, ha='right')
+
+
+filename='60s_expense_2024.png'
+plt.savefig(filename, dpi=400, bbox_inches='tight')
+plt.show()
+
+
+# 2. 생활비별 소득 분포 (전체 인구)
+income_rows = df[df[("구분별(1)", "구분별(1)")] == "소득별"]
+income_index = income_rows[("구분별(2)", "구분별(2)")].str.strip()
+expense_labels = [col[1] for col in income_columns]
+expense_by_income = income_rows[income_columns]
+expense_by_income.index = income_index
+expense_by_income.columns = expense_labels
+expense_by_income = expense_by_income.T 
+
+# 불필요한 컬럼 제거
+if ('구분별(2)', '구분별(2)') in expense_by_income.columns:
+    expense_by_income = expense_by_income.drop(('구분별(2)', '구분별(2)'), axis=1)
+
+# 컬럼명을 단일 인덱스로 변환
+expense_by_income.columns = [str(col) for col in expense_by_income.columns]
+
+print("생활비별 소득 분포 (전체 인구):")
+print(expense_by_income)
