@@ -37,6 +37,12 @@ filled_data = []
 known_years = [row[0] for row in data if row[1] not in (None, '') and row[0] <= 2009]
 known_values = [float(row[1]) for row in data if row[1] not in (None, '') and row[0] <= 2009]
 
+
+plateaus = [(2055, 2058), (2070, 2072)]
+b = 1.0
+noise_prev = 0
+
+
 for year in range(min(all_years), max_year+1):
     # 이미 값이 있으면 그대로
     if year in data_dict and data_dict[year] not in (None, ''):
@@ -64,18 +70,28 @@ for year in range(min(all_years), max_year+1):
             value = max(value, int(filled_data[-1][1])+1)
         filled_data.append([year, value])
     else:
-        # 2026~2100: 2025년 값에서 2100년 1200000까지, 완만한 곡선 (power curve)
         t = (year - mid_year) / (last_year - mid_year)
-        b = 0.8  # 0.7~0.9 사이면 후반 완만
+
+        b += random.uniform(-0.05, 0.05)
+        b = max(0.75, min(1.25, b))
+
         interp = mid_value + (last_value - mid_value) * pow(t, b)
-        noise = random.uniform(-0.01, 0.01) * (last_value - mid_value) * (1-t)
-        value = interp + noise
-        if year == last_year:
-            value = last_value
-        value = int(round(value))
-        if filled_data:
-            value = max(value, int(filled_data[-1][1])+1)
-        filled_data.append([year, value])
+
+        noise_step = random.uniform(-0.008, 0.008) * (last_value - mid_value) * (1 - t)
+        noise_prev += noise_step
+        noise = noise_prev
+
+    if 2055 <= year <= 2058 or 2070 <= year <= 2072:
+        interp -= 800 * (year - 2055 if year <= 2058 else year - 2070)
+        noise *= 0.2
+
+    value = interp + noise
+    if year == last_year:
+        value = last_value
+    value = int(round(value))
+    if filled_data:
+        value = max(value, int(filled_data[-1][1]) + 1)
+    filled_data.append([year, value])
 
 # 결과 저장
 def write_csv(path, rows):

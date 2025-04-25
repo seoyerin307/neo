@@ -1,8 +1,11 @@
 from fastapi import FastAPI, Form, Request, status
 from fastapi.responses import JSONResponse
+from fastapi.responses import PlainTextResponse
 from pymongo import MongoClient
 from datetime import datetime
 import pandas as pd
+from bson.json_util import dumps
+
 
 
 app = FastAPI()
@@ -80,6 +83,19 @@ async def pension_gap(request: Request):
     return {
         "gap": gap
     }
+
+
+
+@app.get("/chart_data")
+async def get_chart_data():
+    documents = collection.find()
+    chart_data = []
+
+    for doc in documents:
+        doc['_id'] = str(doc['_id'])
+        chart_data.append(doc)
+
+    return {"data": chart_data}
 
 if __name__ == "__main__":
     import uvicorn
