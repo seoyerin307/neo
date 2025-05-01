@@ -1,20 +1,20 @@
-# .env
+## .env
 .env
 
-# c program
+## c program
 c/*
-!c/*.c
+c/*.o
 !c/**/*.c
 !c/**/*.h
 !c/**/*.a
-!c/**/Makefile
+!c/**/Makefile*
 
 ## Java
 **/*.class
 
 ## Scala
- scala/**/project
-  scala/**/target
+scala/**/project
+scala/**/target
 
 ## Maven
 maven/**/target
@@ -25,9 +25,10 @@ node/**/package-lock.json
 node/**/.serverless
 
 ## python
-python/**/.idea
+.idea
+secret.json
 python/**/.venv
-pyhton/**/__pycache__/
+python/**/__pycache__/
 **/secret.json
 
 ## mongodb
@@ -35,5 +36,5 @@ mongodb/backup
 
 ## oracle
 oracle/node/dbConfig.js
-oracle/node/node_modules
-oracle/node/package-lack.json
+oracle/**/node_modules
+oracle/**/package-lock.json
