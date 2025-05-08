@@ -1,4 +1,3 @@
-
 build:
 	docker build -t node_signal_test_app .
 run:
