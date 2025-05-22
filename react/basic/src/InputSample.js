@@ -1,20 +1,34 @@
-import React, { userState }from 'react';
+import React, { useState, useRef }from 'react';
 
 function InputSample() {
-    const [text, setText] = useState('');
+    const [inputs, setInputs] = useState({
+        name: '',
+        nickname: '',
+    });
+    const nameInput = useRef();
+
+    const { name, nickname } = inputs;
 
     const onChange = e => {
-        setText(e.target.value);
+        const {value, name } =e.target;
+        setInputs({
+            ...inputs, // 기존 input 객체 복사     
+            [name]: value,  
+        })
     };
     const onReset = () => {
-        setText('');
+        setInputs({
+            name: '',
+            nickname: '',           
+        })
+        nameInput.current.focus();
     }
     return (
         <div>
-            <input placeolder='이름'/>
-            <input placeolder='닉네임'/>
+            <input name="name" onChange={onChange} value={name} placeholder='이름' ref={nameInput}/>
+            <input name="nickname" onChange={onChange} value={nickname} placeholder='닉네임'/>
             <button onClick={onReset}>초기화</button>
-            <div></b>값 : {text}</b> 이름(닉네임) </div>
+            <div><b>값 : </b> {name}({nickname}) </div>
         </div>
     );
 }
