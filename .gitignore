@@ -42,3 +42,6 @@ oracle/**/package-lock.json
 ## docker
 docker/mysql/mysql*
 docker/mongodb/mongo*
+
+react/**/.git
+nestjs
