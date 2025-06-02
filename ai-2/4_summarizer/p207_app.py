@@ -7,7 +7,7 @@ KAGI_API_KEY = os.environ["KAGI_API_KEY"]
 engines = ['cecil','agnes','daphne','muriel']
 
 api_url = "https://kagi.com/api/v0/summarize"
-contents_url = "https://www.khan.co.kr/culture/culture-general/article/202212310830021"
+contents_url = "https://www.hankookilbo.com/News/Read/A2025053009510003758"
 headers = {"Authorization": "Bot " + KAGI_API_KEY}
 
 for engine in engines:
